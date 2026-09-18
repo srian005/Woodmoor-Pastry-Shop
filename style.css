@@ -1,0 +1,61 @@
+/*General Page Styling*/
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f8f4ef;
+    color: #333;
+}
+
+/*Navigation*/
+nav {
+    background-color: #5c3a21;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+nav button:hover {
+    background-color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+nav button:hover {
+    background-color: #e8d8c8;
+}
+
+/*Main Content*/
+main {
+    max-width: 1000px;
+    margin: 0 auto; 
+    padding: 30px;
+}
+
+/*Sections*/
+section {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/*Headings*/
+h1 {
+    text-align: center;
+}
+
+h2 {
+    color: #5c3a21;
+}
+
+/*Buttons*/
+button {
+    cursor: pointer;
+}
