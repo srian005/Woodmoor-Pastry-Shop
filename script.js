@@ -26,3 +26,7 @@ document.getElementById("checkout-button").addEventListener("click", function() 
 });
 
 showSection("home");
+
+document.getElementbyID("view-menu-button").addEventListener("click", function() {
+    showSection("menu");
+}
