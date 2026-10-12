@@ -116,7 +116,7 @@ button {
 }
 
 /* Product Names */
-product-card h3 {
+.product-card h3 {
     color: #5c3a21;
     margin-bottom: 10px;
 }
@@ -139,4 +139,14 @@ product-card h3 {
     #product-list {
         grid-template-columns: 1fr;
     }
+}
+
+/* Product Images */
+.product-image {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background-color: #f8f4ef;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
