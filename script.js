@@ -521,7 +521,47 @@ function displayProducts() {
     });
 }
 
+/**
+ * Adds a selected product to the shopping cart.
+ * @param {string} productId - The ID of the product to add to the cart.
+ */
+function addToCart(productId) {
+    const product = products.find(function(item) {
+        return item.id === productId;
+    });
 
+    if (!product) {
+        alert("Product not found.");
+        return;
+    }
+
+    if (product.inventory <= 0) {
+        alert("Sorry, this product is out of stock.");
+        return;
+    }
+
+    const cartItem = cart.find(function(item) {
+        return item.product.id === productId;
+    });
+
+    if (cartItem) {
+        if (cartItem.quantity < product.inventory) {
+            cartItem.quantity++;
+        } else {
+            alert("You have reached the maximum available quantity for this product.");
+            return;
+        }
+    } else {
+        cart.push({
+            product: product,
+            quantity: 1
+        });
+    }
+
+    alert(`${product.name} has been added to your cart.`);
+    updateCartDisplay();
+}
+    
 // Navigation Event Listeners
 document.getElementById("home-button").addEventListener("click", function() {
     showSection("home");
