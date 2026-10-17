@@ -404,6 +404,8 @@ const products = [
     }
 ];
 
+const cart = [];
+
 // Seasonal Products
 const seasonalProducts = {
     fall: [
@@ -503,6 +505,20 @@ function displayProducts() {
             ? "TBD"
             : "$" + product.price.toFixed(2);
 
+            let optionsDisplay = "";
+
+            if (product.options) {
+                optionsDisplay = `
+                <p>Options: ${product.options.join(" / ")}</p>
+                `;
+            }
+
+            if (product.fillingOptions) {
+                optionsDisplay = `
+                <p>Filling Options: ${Object.keys(product.fillingOptions).join(", ")}</p>
+                `;
+            }
+
         // Create the product card content, including its image
         productCard.innerHTML = `
             <img
@@ -512,8 +528,11 @@ function displayProducts() {
             >
             <h3>${product.name}</h3>
             <p>${product.description}</p>
+            ${optionsDisplay}
             <p>Price: ${priceDisplay}</p>
             <p>Available: ${product.inventory}</p>
+
+            <button onclick="addToCart('${product.id}')">Add to Cart</button>
         `;
 
         // Add the finished card to the menu
@@ -560,6 +579,71 @@ function addToCart(productId) {
 
     alert(`${product.name} has been added to your cart.`);
     updateCartDisplay();
+
+    displayCart();
+}
+
+/**
+ * Updates the cart display to reflect the current items in the cart.
+ */
+function displayCart() {
+    const cartItems = document.getElementById("cart-items");
+
+    cartItems.innerHTML = "";
+
+    // Get the HTML element for the cart total
+    const subtotalDisplay = document.getElementById("cart-subtotal");
+    const taxDisplay = document.getElementById("cart-tax");
+    const totalDisplay = document.getElementById("cart-total");
+
+    // Show a message if the cart is empty
+    if (cart.length === 0) {
+        cartItems.innerHTML = "<p>Your cart is empty.</p>";
+
+        subtotalDisplay.textContent = "$0.00";
+        taxDisplay.textContent = "$0.00";
+        totalDisplay.textContent = "$0.00";
+        return;
+    }
+
+    let subtotal = 0;
+
+    // Display each item in the cart
+    cart.forEach(function(item) {
+        if (item.product.price !== null) {
+            subtotal += item.product.price * item.quantity;
+        }
+        const cartRow = document.createElement("div");
+
+        // Product details are stored inside item.product
+        const product = item.product;
+
+        cartRow.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Price per item: ${
+                product.price === null
+                    ? "TBD"
+                    : "$" + product.price.toFixed(2)
+            }</p>
+            <p>Item total: ${
+                product.price === null
+                    ? "TBD"
+                    : "$" + (product.price * item.quantity).toFixed(2)
+            }</p>
+        `;
+
+        cartItems.appendChild(cartRow);
+    });
+
+    const taxRate = 0.06; // 6% tax
+    const tax = subtotal * taxRate;
+    const total = subtotal + tax;
+
+    // Display the calculated amounts rounded to two decimal places
+    subtotalDisplay.textContent = "$" + subtotal.toFixed(2);
+    taxDisplay.textContent = "$" + tax.toFixed(2);
+    totalDisplay.textContent = "$" + total.toFixed(2);
 }
     
 // Navigation Event Listeners
@@ -573,6 +657,7 @@ document.getElementById("menu-button").addEventListener("click", function() {
 
 document.getElementById("cart-button").addEventListener("click", function() {
     showSection("cart");
+    displayCart();
 });
 
 document.getElementById("checkout-button").addEventListener("click", function() {
