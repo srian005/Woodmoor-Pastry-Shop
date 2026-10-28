@@ -8,100 +8,383 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<!-- Structure -->
-<nav>
-    <button id="home-button">Home</button>
-    <button id="menu-button">Menu</button>
-    <button id="cart-button">Cart</button>
-    <button id="checkout-button">Checkout</button>
-</nav>
-<main>
+<body>
 
-    <!--Home Section-->
-    <section id="home" class="hero">
-        <h2>Welcome to The Woodmoor Pastry Shop!</h2>
+    <!-- Navigation -->
+    <nav>
+        <button id="home-button">Home</button>
+        <button id="menu-button">Menu</button>
+        <button id="cart-button">Cart</button>
+        <button id="admin-button">Admin</button>
+        <button 
+            type="button"
+            onclick="showSection('faq')"
+        >
+            FAQ
+        </button>
+        <button type="button" id="gallery-button">Gallery</button>
+    </nav>
 
-        <p>
-            Explore our selection of cakes, pastries, breads, 
-            donuts, danishes, pies, and seasonal specials. 
-        </p>
+    <main>
 
-        <button id="view-menu-button">View Our Menu</button>
-    </section>
+        <!-- Admin Sources -->
+         <section id="admin-sources">
+            <h2>Product Image Sources</h2>
+            <p>
+                Track the images used on the website and record their original source links and attribution details.
+            </p>
 
-    <!-- Menu Section -->
-    <section id="menu">
-        <h2>Our Menu</h2>
+            <div id="images-sources-list"></div>
 
-        <p>Browse our cakes, breads, donuts, danishes, pies, and more.</p>
+            <button type="button" id="back-to-admin-button">
+                Back to Admin Dashboard
+            </button>
+         </section>
 
-        <div id="product-list">
-            <!-- Products will be added here with JavaScript -->
-        </div>
-    </section>
+        <!-- Gallery Section -->
+         <section id="gallery">
+            <h2>Our Bakery Gallery</h2>
+            <p>Explore our cakes, pastries, breads, and seasonal treats.</p>
 
-     <!-- Cart Section -->
-    <section id="cart">
-        <h2>Your Cart</h2>
+            <div id="gallery-grid" class="gallery-grid"></div>
+         </section>
 
-        <div id="cart-items">
-            <!-- Cart items will be added here with JavaScript -->
-        </div>
+        <!-- Home Section -->
+        <section id="home" class="hero">
+            <div class="home-hero-content">
+                <div class="home-hero-text">
+                    <p class="autumn-eyebrow">🍂 FRESHLY BAKED FOR FALL 🍂</p>
+                    <h2>Welcome to The Woodmoor Pastry Shop!</h2>
+                    <p>
+                        From our ovens to your table, discover delicious cakes,pastries, breads, and seasonal treats made for every occasion.
+                    </p>
+                    <button id="view-menu-button">Explore Our Menu</button>
+                </div>
 
-        <p>Subtotal: $<span id="cart-subtotal">0.00</span></p>
-        <p>Tax: $<span id="cart-tax">0.00</span></p>
-        <p>Total: $<span id="cart-total">0.00</span></p>
-    </section>
+                <div class="shop-photo-container">
+                    <img
+                        src="https://placehold.co/700x500/e8d8c8/5c3a21?text=Your+Bakery+Photo"
+                        alt="The Woodmoor Pastry Shop storefront"
+                        id="shop-photo"
+                    >
+                    <p class="shop-photo-caption">A little sweetness in every season</p>
+                </div>
+            </div>
 
-    <!-- Checkout Section -->
-    <section id="checkout">
-        <h2>Checkout</h2>
+            <!-- Fall Seasonal Specials -->
+            <div id="fall-specials" class="fall-specials">
+                <div class="fall-specials-heading">
+                    <p class="autumn-eyebrow">LIMITED-TIME TREATS</p>
+                    <h2>Fall Into Something Sweet 🍁</h2>
+                    <p>
+                        Celebrate autumn with our seasonal favorites.
+                        Available while supplies last!
+                    </p>
+                </div>
 
-        <p>Enter your information below to complete your order.</p>
+                <div id="seasonal-product-list" class="seasonal-product-grid">
+                    <!-- Seasonal products will be added by JavaScript -->
+                </div>
 
-        <form id="checkout-form">
-            <label for="first-name">First Name:</label>
-            <input type="text" id="first-name" required>
+                <button
+                    type="button"
+                    class="fall-menu-button"
+                    onclick="showSection('menu')"
+                >
+                    Explore the Full Menu
+                </button>
+            </div>
+        </section>
 
-            <label for="last-name">Last Name:</label>
-            <input type="text" id="last-name" required>
+        <section id="faq">
+            <h2>Frequently Asked Questions</h2>
 
-            <label for="contact">Phone or Email:</label>
-            <input type="text" id="contact" required> 
+            <details>
+                <summary>What are your store hours?</summary>
+                <p>
+                    Monday–Saturday: [Enter opening and closing times]
+                    <br>
+                    Sunday: [Enter opening and closing times]
+                </p>
+            </details>
 
-            <label for="pickup-date">Pickup Date:</label>
-            <input type="date" id="pickup-date" required> 
+            <details>
+                <summary>Where are you located?</summary>
+                <p>
+                    [Enter the verified Woodmoor Pastry Shop address here.]
+                </p>
+            </details>
 
-            <label for="budget">Budget:</label>
-            <input type="number" id="budget" min="0" step="0.01">
+            <details>
+                <summary>About Woodmoor Pastry Shop</summary>
+                <p>
+                    Woodmoor Pastry Shop offers a variety of baked goods,
+                    including cakes, donuts, danishes, breads, pies, and
+                    seasonal treats. We aim to make it easy for customers
+                    to browse our menu and place pickup orders online.
+                </p>
+            </details>
 
-            <label for="notes">Additional Notes:</label>
-            <textarea id="notes"></textarea>
+            <details>
+                <summary>How can I check allergy information?</summary>
+                <p>
+                    Please list any known allergies in the Order Notes field
+                    during checkout. For ingredient or cross-contact
+                    questions, contact the bakery before placing an order.
+                    Customers with serious allergies should confirm
+                    ingredients and preparation practices directly with
+                    the bakery.
+                </p>
+            </details>
 
-            <button type="submit">Submit Order</button>
+            <details>
+                <summary>What is your phone number?</summary>
+                <p>
+                    The phone number is: (xxx) xxx xxxx. Please call during store hours and an employee will be at your assistance.
+                </p>
+            </details>
+        </section>
 
-        </form>
-    </section>
+        <!-- Menu Section -->
+        <section id="menu">
+            <h2>Our Menu</h2>
 
-      <!-- Confirmation Section -->
-    <section id="confirmation">
-        <h2>Order Confirmation</h2>
+            <p>Browse our cakes, breads, donuts, danishes, pies, and more.</p>
 
-        <p>Thank you for your order! Here are the details:</p>
+            <!-- Menu Category Navigation -->
+            <nav id="menu-category-nav" aria-label="Menu categories">
+                <button type="button" data-category="Cakes">Cakes</button>
+                <button type="button" data-category="Grab-and-Go Torte">Torte</button>
+                <button type="button" data-category="Donuts">Donuts</button>
+                <button type="button" data-category="Danishes">Danish</button>
+                <button type="button" data-category="Coffee">Coffee</button>
+                <button type="button" data-category="Breads">Breads</button>
+                <button type="button" data-category="Rolls">Rolls</button>
+                <button type="button" data-category="Pies">Pies</button>
+            </nav>
 
-        <p>Your order number is:</p>
+            <div class = "search-container">
+                <label for="product-search">Find a treat:</label>
+                <input
+                    type="search"
+                    id="product-search"
+                    placeholder="Search cakes, donuts, pies..."
+                    autocomplete="off"
+                >
+                <p id="product-search-message" aria-live="polite"></p>
+            </div>
 
-        <strong id="order-number"></strong>
+            <div id="product-list">
+                <!-- Products will be added here with JavaScript -->
+            </div>
+        </section>
 
-        <div id="order-summary">
-            <!-- Order summary will be added here with JavaScript -->
-        </div>
-    </section>
-</main>
+        <!-- Combined Cart and Checkout Section -->
+        <section id="cart">
+            <h2>Your Cart & Checkout</h2>
 
+            <div id="cart-checkout-layout">
 
-<script src="script.js"></script>
+                <!-- Left Panel: Cart and Totals -->
+                <div id="cart-main-panel">
+                    <h3>Your Items</h3>
+
+                    <div id="cart-items">
+                        <!-- Cart items will be added here with JavaScript -->
+                    </div>
+
+                    <section id="cart-quick-add">
+                        <h3>Want anything else?</h3>
+                        <p>Search for another treat and add it to your order.</p>
+
+                        <label for="cart-product-search">Search all products:</label>
+                        <input
+                            type="search"
+                            id="cart-product-search"
+                            placeholder="Try donuts, bread, pumpkin pie..."
+                            autocomplete="off"
+                        >
+
+                        <div id="cart-search-results" aria-live="polite">
+                            <p>Start typing to find more treats.</p>
+                        </div>
+                    </section>
+
+                    <div id="cart-totals">
+                        <p>Subtotal: $<span id="cart-subtotal">0.00</span></p>
+                        <p>Tax: $<span id="cart-tax">0.00</span></p>
+                        <p>Total: $<span id="cart-total">0.00</span></p>
+                    </div>
+
+                    <hr>
+
+                    <h3>Customer Information</h3>
+                    <p>Complete your details below to place your order.</p>
+
+                    <form id="checkout-form">
+
+                        <label for="first-name">First Name:</label>
+                        <input type="text" id="first-name" required>
+
+                        <label for="last-name">Last Name:</label>
+                        <input type="text" id="last-name" required>
+
+                        <label for="phone">Phone Number:</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="Enter your phone number"
+                            required
+                        >
+
+                        <label for="email">Email Address:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email address"
+                            required
+                        >
+
+                        <label for="pickup-date">Pickup Date:</label>
+                        <input type="date" id="pickup-date" required>
+
+                        <label for="notes">Order Notes:</label>
+                        <textarea 
+                            id="notes"
+                            name="notes"
+                            placeholder="Special requests (list allergy information here, or custom order requirements)"
+                        ></textarea>
+
+                        <button type="submit">Place Order</button>
+
+                    </form>
+                </div>
+
+                <!-- Right Panel: Prize Spinner -->
+                <aside id="prize-spinner-section">
+                    <h3>🎡 Spin to Win!</h3>
+                    <p>Spin once per order to win a bakery reward.</p>
+
+                    <div id="prize-wheel-container">
+                        <div id="prize-pointer"></div>
+
+                        <div id="prize-wheel">
+                            <span class="prize-label prize-10">10% OFF</span>
+                            <span class="prize-label prize-donut">FREE DONUT</span>
+                            <span class="prize-label prize-danish">BOGO DANISH</span>
+                            <span class="prize-label prize-20">20% OFF</span>
+                        </div>
+                    </div>
+
+                    <button type="button" id="spin-button">
+                        SPIN THE WHEEL!
+                    </button>
+
+                    <p id="prize-result" aria-live="polite">
+                        Your reward will appear here!
+                    </p>
+
+                    <div id="prize-details">
+                        <!-- Winning reward details and options will appear here -->
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+
+        <!-- Confirmation Section -->
+        <section id="confirmation">
+            <h2>Order Confirmation</h2>
+
+            <p>Thank you for your order! Here are the details:</p>
+
+            <p>Your order number is:</p>
+
+            <strong id="order-number"></strong>
+
+            <div id="order-summary">
+                <!-- Order summary will be added here with JavaScript -->
+            </div>
+        </section>
+
+        <!-- Admin Login Section -->
+        <section id="admin-login">
+            <h2>Admin Login</h2>
+
+            <p>Enter the administrator passcode to continue.</p>
+
+            <form id="admin-login-form">
+
+                <label for="admin-passcode">Passcode:</label>
+                <input
+                    type="password"
+                    id="admin-passcode"
+                    required
+                >
+
+                <button type="submit">Log In</button>
+
+                <p id="admin-login-message"></p>
+
+            </form>
+        </section>
+
+        <!-- Admin Dashboard Section -->
+        <section id="admin-dashboard">
+            <h2>Bakery Admin Dashboard</h2>
+
+            <button type="button" id="admin-sources-button">
+                Image Sources
+            </button>
+
+            <p>
+                Today's Date:
+                <span id="admin-date"></span>
+            </p>
+
+            <!-- Today's Orders -->
+            <h3>Today's Orders</h3>
+
+            <p>
+                Total Orders:
+                <span id="orders-today">0</span>
+            </p>
+
+            <div id="admin-orders">
+                <!-- Today's order details will appear here -->
+            </div>
+
+            <!-- In-Stock Products -->
+            <h3>In Stock</h3>
+
+            <div id="admin-in-stock">
+                <!-- In-stock products will appear here -->
+            </div>
+
+            <!-- Low-Stock Products -->
+            <h3>Low Stock (3 or Fewer Remaining)</h3>
+
+            <div id="admin-low-stock">
+                <!-- Low-stock products will appear here -->
+            </div>
+
+            <!-- Out-of-Stock Products -->
+            <h3>Out of Stock</h3>
+
+            <div id="admin-out-of-stock">
+                <!-- Out-of-stock products will appear here -->
+            </div>
+
+            <button id="admin-logout-button">Log Out</button>
+
+        </section>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 
 </body>
 </html>
-
