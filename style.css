@@ -717,4 +717,14 @@ button {
     text-decoration: underline;
 }
 
+.bakery-photo {
+    display: block;
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    margin: 20px auto;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
 
