@@ -182,7 +182,7 @@ const products = [
     {
         id: "donut-chocolate-frosted",
         category: "Donuts",
-        name: 'Chocolate FrostedDonut',
+        name: 'Chocolate Frosted Donut',
         description: "Classic chocolate glazed donut.",
         image: "images/chocolate-frosted-donut.jpg",
         price: 1.69,
