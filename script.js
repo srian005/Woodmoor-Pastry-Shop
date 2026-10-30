@@ -637,14 +637,6 @@ function displayProducts() {
                             : "Out of stock"
                     }
                 </p>
-
-                <button
-                    type="button"
-                    onclick="addToCart('${product.id}')"
-                    ${product.inventory <= 0 ? "disabled" : ""}
-                >
-                    ${product.inventory > 0 ? "Add to Cart" : "Sold Out"}
-                </button>
             `;
 
             productGrid.appendChild(productCard);
