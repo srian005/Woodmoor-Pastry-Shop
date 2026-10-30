@@ -637,6 +637,14 @@ function displayProducts() {
                             : "Out of stock"
                     }
                 </p>
+
+                <button
+                    type="button"
+                    onclick="addToCart('${product.id}')"
+                    ${product.inventory <= 0 ? "disabled" : ""}
+                >
+                    ${product.inventory > 0 ? "Add to Cart" : "Sold Out"}
+                </button>
             `;
 
             productGrid.appendChild(productCard);
@@ -1549,11 +1557,6 @@ function redeemDanishBogo(productId) {
     displayCart();
     updateCartDisplay();
 }
-
-document.getElementById("spin-button").addEventListener(
-    "click",
-    spinPrizeWheel
-);
 
 // Jump to a product category when its menu button is clicked
 document.querySelectorAll("#menu-category-nav button").forEach(function(button) {

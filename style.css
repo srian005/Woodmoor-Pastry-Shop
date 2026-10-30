@@ -677,7 +677,6 @@ button {
     border-radius: 12px;
     background-color: #fffaf5;
     text-align: center;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
 }
 
 .gallery-card img {
@@ -727,4 +726,24 @@ button {
     object-fit: cover;
 }
 
+/* Remove rounded corners and borders throughout the website */
+* {
+    border-radius: 0 !important;
+}
 
+/* Remove decorative borders */
+*:not(input):not(select):not(textarea) {
+    border-color: transparent;
+}
+
+/* Remove shadows */
+* {
+    box-shadow: none !important;
+}
+
+input,
+select,
+textarea {
+    border: 1px solid #999 !important;
+    border-radius: 0 !important;
+}
