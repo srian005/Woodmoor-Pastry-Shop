@@ -1,13 +1,13 @@
-Business Solutions Project
+Intro to Programming
 
-DECA Competitive Event: Business Solutions Project (PMBS)
+FBLA Competitive Event: Intro to Programming
 Organization: Diana Nails and Spa
 Team Members: Yosef Kiros, Srian Reddi, Simeon Messeret
 
 Project Overview:
-This project was created as part of the DECA Business Solutions project. The main goal of the project was to identify any significant problems exemplified in a certain business, and take certain actions to resolve them. 
+This project was created as part of a FBLA Intro to Programming Project, more specifically a digital ordering system for the Woodmoor Pastry Shop.
 
 Problem Statement:
-Diana Nails and Spa currently faces adversity within online integration of aspects such as booking, scheduling, and online commerce. This problem may not cause any significant issues relating to clientele, and client satisfaction, however with added online integration, the business potential can be applied.
+Using basic principles of programming, create a digital ordering system for a local business that allows users to create a cart of items, view items through an online menu, and order directly from a website given information such as sub-total and items added.
 
-Proposed Solution
+Programming Concepts Demonstrated:
