@@ -54,7 +54,7 @@ const products = [
         name: '8" Round Filling Cake',
         description: "Choose from five filling options.",
         image: "images/8-inch-filling-cake.jpg",
-        price: null,
+        price: 30.00,
         inventory: 4,
         advanceOrder: true,
         advanceDays: 3,
@@ -76,7 +76,7 @@ const products = [
         name: '10" Round Filling Cake',
         description: "Choose from five filling options.",
         image: "images/10-inch-filling-cake.jpg",
-        price: null,
+        price: 40.00,
         inventory: 4,
         advanceOrder: true,
         advanceDays: 3,
@@ -373,7 +373,7 @@ const products = [
         name: 'Parkerhouse Rolls',
         description: "Soft and buttery rolls.",
         image: "images/parkerhouse-rolls.jpg",
-        price: null, 
+        price: 8.49, 
         inventory: 12,
         advanceOrder: false,
         advanceDays: 0,
@@ -392,7 +392,7 @@ const products = [
         name: 'Hot Dog Buns',
         description: "Soft and fluffy hot dog buns.",
         image: "images/hot-dogs.jpg",
-        price: null, 
+        price: 6.49, 
         inventory: 12,
         advanceOrder: false,
         advanceDays: 0,
@@ -407,7 +407,7 @@ const products = [
         name: 'Burger Buns',
         description: "Soft and fluffy burger buns.",
         image: "images/burger-buns.jpg",
-        price: null,
+        price: 5.49,
         inventory: 12,
         advanceOrder: false,
         advanceDays: 0,
@@ -423,7 +423,7 @@ const products = [
         name: 'Grab-and-Go Torte',
         description: "A convenient and delicious torte for on-the-go enjoyment.",
         image: "images/torte.jpg",
-        price: null,
+        price: 3.50,
         inventory: 3,
         advanceOrder: false,
         advanceDays: 0,
@@ -446,7 +446,7 @@ const seasonalProducts = {
             name: "Pumpkin Spice Muffin",
             description: "A delightful muffin infused with the flavors of fall.",
             image: "images/pumpkin-muffin.jpg",
-            price: null,
+            price: 2.50,
             inventory: 6,
             imageSource: "https://www.facebook.com/GirlWhoAteEverything/videos/pumpkin-cream-cheese-muffins-ive-never-had-anyone-taste-these-and-say-i-dont-lik/2342632376568921/"
         },
@@ -468,7 +468,7 @@ const seasonalProducts = {
             name: "Halloween Cookie",
             description: "A spooky cookie perfect for the holiday.",
             image: "images/halloween-cookie.jpg",
-            price: null,
+            price: 1.50,
             inventory: 12,
             imageSource: "https://www.publicdomainpictures.net/fr/view-image.php?image=815352&picture=decorer-des-biscuits-d-halloween"
         } 
@@ -837,18 +837,6 @@ function displayCart() {
         cartItems.appendChild(cartRow);
     });
 
-    // Apply the winning percentage discount to paid items.
-    const discountAmount = subtotal * discountRate;
-    const discountedSubtotal = Math.max(0, subtotal - discountAmount);
-    const tax = discountedSubtotal * 0.06;
-    const total = discountedSubtotal + tax;
-
-    if (discountRow) {
-        discountRow.textContent = discountRate > 0
-            ? `Reward discount (${Math.round(discountRate * 100)}%): -$${discountAmount.toFixed(2)}`
-            : "Reward discount: $0.00";
-    }
-
     // Preserve TBD totals when an item has no listed price.
     if (hasUnpricedItems) {
         subtotalDisplay.textContent = "TBD";
@@ -953,7 +941,6 @@ document.getElementById("checkout-form").addEventListener("submit", function(eve
     }, 0);
 
     // Apply the percentage reward discount.
-    const discountAmount = orderSubtotal * discountRate;
     const discountedSubtotal = orderSubtotal - discountAmount;
 
     // Calculate tax after the discount.
@@ -1023,12 +1010,6 @@ document.getElementById("checkout-form").addEventListener("submit", function(eve
             : "$" + orderTotal.toFixed(2)}</strong></p>
     `;
 
-    if (activePrize) {
-        const rewardMessage = document.createElement("p");
-        rewardMessage.textContent = "Reward earned: " + activePrize.name;
-        rewardDetails.prepend(rewardMessage);
-    }
-
     orderSummary.appendChild(rewardDetails);
 
     // Update inventory for all items, including free rewards.
@@ -1048,50 +1029,18 @@ document.getElementById("checkout-form").addEventListener("submit", function(eve
         items: orderedItems,
         subtotal: orderSubtotal,
         discount: discountAmount,
-        discountRate: discountRate,
         tax: orderTax,
         total: hasUnpricedItems ? null : orderTotal,
-        reward: activePrize ? activePrize.name : null,
         placedAt: new Date()
     });
 
     // Clear the cart and reset the reward for the next order.
     cart.length = 0;
-    discountRate = 0;
-    activePrize = null;
-    hasSpun = false;
-    rewardApplied = false;
-    wheelRotation = 0;
 
     displayCart();
     updateCartDisplay();
     displayProducts();
 
-    // Reset the spinner for the next order.
-    const wheel = document.getElementById("prize-wheel");
-    const spinButton = document.getElementById("spin-button");
-    const prizeResult = document.getElementById("prize-result");
-    const prizeDetails = document.getElementById("prize-details");
-
-    if (wheel) {
-        wheel.style.transition = "none";
-        wheel.style.transform = "rotate(0deg)";
-    }
-
-    if (spinButton) {
-        spinButton.disabled = false;
-    }
-
-    if (prizeResult) {
-        prizeResult.textContent = "Your reward will appear here!";
-    }
-
-    if (prizeDetails) {
-        prizeDetails.innerHTML = "";
-    }
-
-    // Show the confirmation page.
-    showSection("confirmation");
 });
 
 /**
@@ -1268,294 +1217,6 @@ function displayAdminDashboard() {
     if (outOfStockDisplay.innerHTML === "") {
         outOfStockDisplay.textContent = "No products are out of stock.";
     }
-}
-
-/* =========================================
-   PRIZE SPINNER
-   One spin and one reward per order
-========================================= */
-
-let activePrize = null;
-let hasSpun = false;
-let wheelRotation = 0;
-let rewardApplied = false;
-let discountRate = 0;
-
-const prizeOptions = [
-    { id: "sweet10", name: "10% OFF", chance: 29.33 },
-    { id: "freeDonut", name: "FREE DONUT", chance: 29.33 },
-    { id: "danishBogo", name: "BUY ONE, GET ONE DANISH FREE", chance: 29.34 },
-    { id: "sweet20", name: "20% OFF", chance: 12 }
-];
-
-// Keep these angles aligned with your working wheel.
-const prizeSliceCenters = [7.8, 113.4, 219, 293.4];
-
-/**
- * Spins once and selects a reward.
- */
-function spinPrizeWheel() {
-    if (hasSpun) {
-        document.getElementById("prize-result").textContent =
-            "Your prize is already locked in for this order!";
-        return;
-    }
-
-    if (cart.length === 0) {
-        alert("Add an item to your cart before spinning!");
-        return;
-    }
-
-    const wheel = document.getElementById("prize-wheel");
-    const result = document.getElementById("prize-result");
-    const spinButton = document.getElementById("spin-button");
-
-    if (!wheel || !result || !spinButton) return;
-
-    hasSpun = true;
-    spinButton.disabled = true;
-    result.textContent = "Spinning...";
-
-    const randomNumber = Math.random() * 100;
-    let runningTotal = 0;
-
-    for (const prize of prizeOptions) {
-        runningTotal += prize.chance;
-
-        if (randomNumber < runningTotal) {
-            activePrize = prize;
-            break;
-        }
-    }
-
-    const centerAngle =
-        prizeSliceCenters[prizeOptions.indexOf(activePrize)];
-
-    const targetRotation = (360 - centerAngle + 360) % 360;
-    const currentRotation = wheelRotation % 360;
-    const adjustment =
-        (targetRotation - currentRotation + 360) % 360;
-
-    wheelRotation += 5 * 360 + adjustment;
-
-    wheel.style.transition =
-        "transform 4s cubic-bezier(0.15, 0.8, 0.2, 1)";
-    wheel.style.transform = `rotate(${wheelRotation}deg)`;
-
-    setTimeout(function() {
-        result.textContent = `You won: ${activePrize.name}!`;
-        showPrizeDetails();
-    }, 4100);
-}
-
-/**
- * Displays the appropriate reward information and selection menu.
- */
-function showPrizeDetails() {
-    const details = document.getElementById("prize-details");
-
-    if (!details || !activePrize) return;
-
-    details.innerHTML = "";
-
-    const message = document.createElement("p");
-
-    if (activePrize.id === "sweet10") {
-        discountRate = 0.10;
-        rewardApplied = true;
-
-        message.textContent =
-            "Use code SWEET10! Your 10% discount has been applied automatically.";
-
-        details.appendChild(message);
-        displayCart();
-        return;
-    }
-
-    if (activePrize.id === "sweet20") {
-        discountRate = 0.20;
-        rewardApplied = true;
-
-        message.textContent =
-            "Your 20% discount has been applied automatically!";
-
-        details.appendChild(message);
-        displayCart();
-        return;
-    }
-
-    if (activePrize.id === "freeDonut") {
-        message.textContent =
-            "Choose your free donut flavor:";
-
-        details.appendChild(message);
-        addRewardFlavorSelector(
-            details,
-            "Donuts",
-            "Redeem Free Donut",
-            redeemFreeDonut
-        );
-        return;
-    }
-
-    if (activePrize.id === "danishBogo") {
-        message.textContent =
-            "Choose the Danish flavor you want to buy. You'll receive a second one of the same flavor free!";
-
-        details.appendChild(message);
-        addRewardFlavorSelector(
-            details,
-            "Danishes",
-            "Redeem Danish BOGO",
-            redeemDanishBogo
-        );
-    }
-}
-
-/**
- * Creates a flavor selector for a reward.
- */
-function addRewardFlavorSelector(container, category, buttonText, redeemFunction) {
-    const selector = document.createElement("select");
-    selector.id = "reward-flavor-select";
-
-    const placeholder = document.createElement("option");
-    placeholder.value = "";
-    placeholder.textContent = "Choose a flavor";
-    selector.appendChild(placeholder);
-
-    products
-        .filter(function(product) {
-            return product.category === category && product.inventory > 0;
-        })
-        .forEach(function(product) {
-            const option = document.createElement("option");
-            option.value = product.id;
-            option.textContent =
-                `${product.name} — $${product.price.toFixed(2)}`;
-
-            selector.appendChild(option);
-        });
-
-    const redeemButton = document.createElement("button");
-    redeemButton.type = "button";
-    redeemButton.textContent = buttonText;
-
-    redeemButton.addEventListener("click", function() {
-        if (!selector.value) {
-            alert("Please choose a flavor first.");
-            return;
-        }
-
-        redeemFunction(selector.value);
-    });
-
-    container.appendChild(selector);
-    container.appendChild(redeemButton);
-}
-
-/**
- * Counts a product's quantity already in the cart.
- */
-function getCartQuantity(productId) {
-    return cart.reduce(function(total, item) {
-        return total + (
-            item.product.id === productId ? item.quantity : 0
-        );
-    }, 0);
-}
-
-/**
- * Redeems a free donut reward.
- */
-function redeemFreeDonut(productId) {
-    if (rewardApplied) {
-        alert("Your reward has already been redeemed.");
-        return;
-    }
-
-    const product = products.find(function(item) {
-        return item.id === productId;
-    });
-
-    if (!product || product.category !== "Donuts") {
-        alert("Please select a valid donut.");
-        return;
-    }
-
-    if (getCartQuantity(productId) + 1 > product.inventory) {
-        alert("There isn't enough stock for this reward.");
-        return;
-    }
-
-    cart.push({
-        product: product,
-        quantity: 1,
-        isFree: true,
-        rewardItem: true
-    });
-
-    rewardApplied = true;
-
-    document.getElementById("prize-result").textContent =
-        `Your free ${product.name} has been added to the cart!`;
-
-    document.getElementById("prize-details").innerHTML =
-        "<p>Your free donut is in your cart.</p>";
-
-    displayCart();
-    updateCartDisplay();
-}
-
-/**
- * Redeems buy-one-get-one-free Danish.
- */
-function redeemDanishBogo(productId) {
-    if (rewardApplied) {
-        alert("Your reward has already been redeemed.");
-        return;
-    }
-
-    const product = products.find(function(item) {
-        return item.id === productId;
-    });
-
-    if (!product || product.category !== "Danishes") {
-        alert("Please select a valid Danish.");
-        return;
-    }
-
-    if (getCartQuantity(productId) + 2 > product.inventory) {
-        alert("There isn't enough stock for both Danishes.");
-        return;
-    }
-
-    // Add the paid Danish and the free Danish as linked reward items.
-    cart.push({
-        product: product,
-        quantity: 1,
-        rewardItem: true,
-        rewardPair: productId
-    });
-
-    cart.push({
-        product: product,
-        quantity: 1,
-        isFree: true,
-        rewardItem: true,
-        rewardPair: productId
-    });
-
-    rewardApplied = true;
-
-    document.getElementById("prize-result").textContent =
-        `Buy one, get one free! Two ${product.name}s have been added.`;
-
-    document.getElementById("prize-details").innerHTML =
-        "<p>One Danish is paid; the second is free.</p>";
-
-    displayCart();
-    updateCartDisplay();
 }
 
 // Jump to a product category when its menu button is clicked
@@ -1816,7 +1477,7 @@ function displayGallery() {
  * Displays image paths and source links for all products.
  */
 function displayImageSources() {
-    const sourcesList = document.getElementById("image-sources-list");
+    const sourcesList = document.getElementById("images-sources-list");
 
     if (!sourcesList) {
         return;
@@ -1918,6 +1579,11 @@ document.getElementById("back-to-admin-button").addEventListener(
         displayAdminDashboard();
     }
 );
+
+// Cart Icon Button 
+document.getElementById("cart-icon-button").addEventListener("click", function () {
+    showSection("cart");
+});
 
 // Start on Home
 showSection("home");

@@ -16,6 +16,9 @@
         <button id="menu-button">Menu</button>
         <button id="cart-button">Cart</button>
         <button id="admin-button">Admin</button>
+        <button id="cart-icon-button" class="cart-icon-button" aria-label="Open shopping cart">
+            <img src="images/cart.png" alt="Shopping Cart">
+        </button>
         <button 
             type="button"
             onclick="showSection('faq')"
@@ -93,16 +96,20 @@
             <details>
                 <summary>What are your store hours?</summary>
                 <p>
-                    Monday–Saturday: [Enter opening and closing times]
+                    Monday: Closed
                     <br>
-                    Sunday: [Enter opening and closing times]
+                    Tuesday - Friday: 6:30 AM - 8:00 PM
+                    <br>
+                    Saturday: 7:00 AM - 7:00 PM
+                    <br>
+                    Sunday: 7:00 AM - 2:30 PM
                 </p>
             </details>
 
             <details>
                 <summary>Where are you located?</summary>
                 <p>
-                    [Enter the verified Woodmoor Pastry Shop address here.]
+                    10127 Colesville Road, Silver Spring, Maryland 20901
                 </p>
             </details>
 
@@ -111,8 +118,7 @@
                 <p>
                     Woodmoor Pastry Shop offers a variety of baked goods,
                     including cakes, donuts, danishes, breads, pies, and
-                    seasonal treats. We aim to make it easy for customers
-                    to browse our menu and place pickup orders online.
+                    seasonal treats.
                 </p>
             </details>
 
@@ -131,7 +137,7 @@
             <details>
                 <summary>What is your phone number?</summary>
                 <p>
-                    The phone number is: (xxx) xxx xxxx. Please call during store hours and an employee will be at your assistance.
+                    The phone number is: (301)-593-7667 Please call during store hours and an employee will be at your assistance.
                 </p>
             </details>
         </section>
@@ -141,8 +147,6 @@
             <h2>Our Menu</h2>
 
             <p>Browse our cakes, breads, donuts, danishes, pies, and more.</p>
-
-            <!-- Menu Category Navigation -->
 
             <div class = "search-container">
                 <label for="product-search">Find a treat:</label>
@@ -166,7 +170,7 @@
 
             <div id="cart-checkout-layout">
 
-                <!-- Left Panel: Cart and Totals -->
+                <!-- Cart and Totals -->
                 <div id="cart-main-panel">
                     <h3>Your Items</h3>
 
@@ -240,9 +244,6 @@
 
                     </form>
                 </div>
-
-                
-
             </div>
         </section>
 
