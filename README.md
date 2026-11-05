@@ -23,5 +23,5 @@ How can your system improve the customer experience while helping a local busine
 more efficiently?
 
 Programming Concepts:
-HTML was used 
+HTML was used textual aspects and buttons, 
 Variables: Used to store important values such as sub-total, amount of items, user input values, etc.
